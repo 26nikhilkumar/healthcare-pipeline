@@ -1,0 +1,24 @@
+ipython>=8.10
+jupyterlab>=3.0
+kedro~=0.19.6
+kedro-datasets>=3.0; python_version >= "3.9"
+kedro-datasets>=1.0; python_version < "3.9"
+kedro-telemetry>=0.3.1
+kedro-viz==7.0.0  # Pinning a compatible version
+notebook
+pytest~=7.2
+pytest-cov~=3.0
+pytest-mock>=1.7.1, <2.0
+ruff~=0.1.8
+setuptools; python_version >= "3.12"
+pyspark
+pandas
+pyarrow
+importlib-metadata==7.0.0  # Pinning a compatible version
+anyio==3.6.2  # Pinning a compatible version
+urllib3<1.27,>=1.25.4  # Pinning a compatible version
+fsspec==2023.12.2  # Latest compatible version with s3fs
+packaging~=23.0  # Pinning a compatible version
+s3fs==2023.12.2  # Pinning the same version as fsspec
+toposort
+openpyxl

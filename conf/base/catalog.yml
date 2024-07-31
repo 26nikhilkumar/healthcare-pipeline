@@ -1,0 +1,53 @@
+patients:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/patients.csv
+
+symptoms:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/symptoms.csv
+
+medications:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/medications.csv
+
+conditions:
+  type: pandas.ExcelDataSet
+  filepath: data/01_raw/conditions.xlsx
+
+encounters:
+  type: pandas.ParquetDataSet
+  filepath: data/01_raw/encounters.parquet
+
+patient_gender:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/patient_gender.csv
+
+patients_cleaned_sqlite:
+  type: pandas.SQLTableDataSet
+  credentials: sqlite_creds
+  table_name: patients_cleaned
+
+symptoms_cleaned_sqlite:
+  type: pandas.SQLTableDataSet
+  credentials: sqlite_creds
+  table_name: symptoms_cleaned
+
+medications_cleaned_sqlite:
+  type: pandas.SQLTableDataSet
+  credentials: sqlite_creds
+  table_name: medications_cleaned
+
+conditions_cleaned_sqlite:
+  type: pandas.SQLTableDataSet
+  credentials: sqlite_creds
+  table_name: conditions_cleaned
+
+encounters_cleaned_sqlite:
+  type: pandas.SQLTableDataSet
+  credentials: sqlite_creds
+  table_name: encounters_cleaned
+
+patient_gender_cleaned_sqlite:
+  type: pandas.SQLTableDataSet
+  credentials: sqlite_creds
+  table_name: patient_gender_cleaned
