@@ -22,3 +22,4 @@ packaging~=23.0  # Pinning a compatible version
 s3fs==2023.12.2  # Pinning the same version as fsspec
 toposort
 openpyxl
+great_expectations

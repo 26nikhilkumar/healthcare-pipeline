@@ -51,3 +51,8 @@ patient_gender_cleaned_sqlite:
   type: pandas.SQLTableDataSet
   credentials: sqlite_creds
   table_name: patient_gender_cleaned
+
+merged_data_sqlite:
+  type: pandas.SQLTableDataSet
+  credentials: sqlite_creds
+  table_name: merged_data

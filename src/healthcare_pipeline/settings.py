@@ -16,7 +16,6 @@ from pathlib import Path  # noqa: E402
 from kedro_viz.integrations.kedro.sqlite_store import SQLiteStore  # noqa: E402
 
 # Class that manages storing KedroSession data.
-
 SESSION_STORE_CLASS = SQLiteStore
 # Keyword arguments to pass to the `SESSION_STORE_CLASS` constructor.
 SESSION_STORE_ARGS = {"path": str(Path(__file__).parents[2])}
@@ -38,9 +37,17 @@ CONFIG_LOADER_ARGS = {
 }
 
 # Class that manages Kedro's library components.
-# from kedro.framework.context import KedroContext
-# CONTEXT_CLASS = KedroContext
+from kedro.framework.context import KedroContext  # noqa: E402
 
-# Class that manages the Data Catalog.
-# from kedro.io import DataCatalog
-# DATA_CATALOG_CLASS = DataCatalog
+class ProjectContext(KedroContext):
+    project_name = "healthcare_pipeline"
+    project_version = "0.1"
+    package_name = "healthcare_pipeline"
+
+    def _get_pipelines(self):
+        from healthcare_pipeline.pipeline import create_pipeline
+        return {
+            "__default__": create_pipeline(),
+        }
+
+CONTEXT_CLASS = ProjectContext
