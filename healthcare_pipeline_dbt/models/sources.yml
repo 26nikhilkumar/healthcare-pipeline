@@ -1,0 +1,18 @@
+version: 2
+
+sources:
+  - name: healthcare_pipeline
+    schema: main
+    tables:
+      - name: raw_patients
+        path: ../../data/01_raw/patients.csv
+      - name: raw_symptoms
+        path: ../../data/01_raw/symptoms.csv
+      - name: raw_medications
+        path: ../../data/01_raw/medications.csv
+      - name: raw_conditions
+        path: ../../data/01_raw/conditions.csv
+      - name: raw_encounters
+        path: ../../data/01_raw/encounters.parquet
+      - name: raw_patient_gender
+        path: ../../data/01_raw/patient_gender.csv

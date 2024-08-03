@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, split, explode, to_date, when, datediff
+from pyspark.sql.functions import col, split, explode, to_date, when, datediff, lower
 from pyspark.sql.types import StructType, StructField, StringType, DoubleType, IntegerType
 
 # Initialize Spark session with optimized configurations
@@ -10,6 +10,10 @@ spark = SparkSession.builder \
     .config("spark.sql.execution.arrow.pyspark.enabled", "true") \
     .config("spark.sql.execution.arrow.pyspark.fallback.enabled", "true") \
     .config("spark.sql.legacy.timeParserPolicy", "LEGACY") \
+    .config("spark.executor.memory", "4g")  \
+    .config("spark.driver.memory", "4g")  \
+    .config("spark.memory.fraction", "0.8")  \
+    .config("spark.memory.storageFraction", "0.2")  \
     .getOrCreate()
 
 def clean_datasets(patients, symptoms, medications, conditions, encounters, patient_gender):
@@ -153,5 +157,11 @@ def clean_datasets(patients, symptoms, medications, conditions, encounters, pati
                                  .withColumn("stop", to_date(col("STOP"), 'yyyy-MM-dd'))
     encounters_df = encounters_df.withColumn("duration", datediff(col("stop"), col("start")))
     encounters_df = encounters_df.fillna({'REASONDESCRIPTION': 'None'})
+
+    # Convert patient IDs to lowercase
+    encounters_df = encounters_df.withColumn("PATIENT", lower(col("PATIENT")))
+
+    # Convert encounter IDs to lowercase
+    medications_df = medications_df.withColumn("ENCOUNTER", lower(col("ENCOUNTER")))
 
     return patients_df, symptoms_cleaned, medications_df, conditions_df, encounters_df, patient_gender_df

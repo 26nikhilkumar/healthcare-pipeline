@@ -6,3 +6,8 @@ spark.sql.execution.arrow.pyspark.enabled: true
 
 # https://docs.kedro.org/en/stable/integrations/pyspark_integration.html#tips-for-maximising-concurrency-using-threadrunner
 spark.scheduler.mode: FAIR
+
+spark:
+  spark_config:
+    spark.driver.extraClassPath: "/config/workspace/case_study/healthcare-pipeline/sqlite-jdbc-3.34.0.jar"
+    spark.executor.extraClassPath: "/config/workspace/case_study/healthcare-pipeline/sqlite-jdbc-3.34.0.jar"

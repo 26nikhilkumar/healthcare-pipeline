@@ -1,1 +1,2 @@
-sqlite_creds: sqlite:///data/healthcare.db
+sqlite_creds:
+  con: sqlite:///data/healthcare.db

@@ -45,9 +45,12 @@ class ProjectContext(KedroContext):
     package_name = "healthcare_pipeline"
 
     def _get_pipelines(self):
-        from healthcare_pipeline.pipeline import create_pipeline
+        from healthcare_pipeline.pipelines.data_processing import pipeline as data_processing_pipeline
+        from healthcare_pipeline.pipelines.analysis import pipeline as analysis_pipeline
         return {
-            "__default__": create_pipeline(),
+            "data_processing": data_processing_pipeline.create_pipeline(),
+            "data_analysis": analysis_pipeline.create_pipeline(),
+            "__default__": data_processing_pipeline.create_pipeline() + analysis_pipeline.create_pipeline(),
         }
 
 CONTEXT_CLASS = ProjectContext

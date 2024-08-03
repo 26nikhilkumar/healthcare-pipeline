@@ -1,0 +1,169 @@
+version: 2
+
+models:
+  - name: patients
+    description: "Table containing patient details"
+    columns:
+      - name: patient_id
+        description: "Unique identifier for each patient"
+        tests:
+          - unique
+          - not_null
+      - name: first_name
+        description: "Patient's first name"
+      - name: last_name
+        description: "Patient's last name"
+      - name: sex
+        description: "Patient's gender"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['M', 'F', 'Unknown']
+      - name: race
+        description: "Patient's race"
+        tests:
+          - not_null
+      - name: birth_date
+        description: "Patient's birth date"
+        tests:
+          - not_null
+      - name: death_date
+        description: "Patient's death date"
+      - name: address
+        description: "Patient's address"
+      - name: city
+        description: "Patient's city"
+      - name: state
+        description: "Patient's state"
+      - name: zip_code
+        description: "Patient's zip code"
+      - name: birthplace
+        description: "Patient's birthplace"
+
+  - name: symptoms
+    description: "Table containing symptoms details"
+    columns:
+      - name: patient_id
+        description: "Unique identifier for each patient"
+        tests:
+          - not_null
+      - name: symptom
+        description: "Symptom experienced by the patient"
+        tests:
+          - not_null
+      - name: frequency
+        description: "Frequency of the symptom"
+
+  - name: medications
+    description: "Table containing medication details"
+    columns:
+      - name: start
+        description: "Start date of the medication"
+        tests:
+          - not_null
+      - name: stop
+        description: "Stop date of the medication"
+      - name: patient_id
+        description: "Unique identifier for each patient"
+        tests:
+          - not_null
+      - name: payer
+        description: "Payer for the medication"
+      - name: encounter
+        description: "Encounter ID related to the medication"
+      - name: code
+        description: "Code of the medication"
+      - name: description
+        description: "Description of the medication"
+      - name: base_cost
+        description: "Base cost of the medication"
+      - name: payer_coverage
+        description: "Coverage provided by the payer"
+      - name: dispenses
+        description: "Number of dispenses"
+      - name: total_cost
+        description: "Total cost of the medication"
+      - name: reason_code
+        description: "Reason code for the medication"
+      - name: reason_description
+        description: "Reason description for the medication"
+
+  - name: conditions
+    description: "Table containing condition details"
+    columns:
+      - name: start
+        description: "Start date of the condition"
+        tests:
+          - not_null
+      - name: stop
+        description: "Stop date of the condition"
+      - name: patient_id
+        description: "Unique identifier for each patient"
+        tests:
+          - not_null
+      - name: encounter
+        description: "Encounter ID related to the condition"
+      - name: code
+        description: "Code of the condition"
+      - name: description
+        description: "Description of the condition"
+      - name: duration
+        description: "Duration of the condition"
+
+  - name: encounters
+    description: "Table containing encounter details"
+    columns:
+      - name: encounter_id
+        description: "Unique identifier for each encounter"
+        tests:
+          - unique
+          - not_null
+      - name: start
+        description: "Start date of the encounter"
+        tests:
+          - not_null
+      - name: stop
+        description: "Stop date of the encounter"
+      - name: patient_id
+        description: "Unique identifier for each patient"
+        tests:
+          - not_null
+      - name: organization
+        description: "Organization related to the encounter"
+      - name: provider
+        description: "Provider for the encounter"
+      - name: payer
+        description: "Payer for the encounter"
+      - name: encounter_class
+        description: "Class of the encounter"
+      - name: code
+        description: "Code of the encounter"
+      - name: description
+        description: "Description of the encounter"
+      - name: base_encounter_cost
+        description: "Base cost of the encounter"
+      - name: total_claim_cost
+        description: "Total claim cost of the encounter"
+      - name: payer_coverage
+        description: "Coverage provided by the payer"
+      - name: reason_code
+        description: "Reason code for the encounter"
+      - name: reason_description
+        description: "Reason description for the encounter"
+      - name: duration
+        description: "Duration of the encounter"
+
+  - name: patient_gender
+    description: "Table containing patient gender details"
+    columns:
+      - name: patient_id
+        description: "Unique identifier for each patient"
+        tests:
+          - unique
+          - not_null
+      - name: gender
+        description: "Gender of the patient"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['M', 'F', 'Unknown']

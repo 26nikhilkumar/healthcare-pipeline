@@ -3,10 +3,28 @@ from .nodes.connect import load_datasets
 from .nodes.clean import clean_datasets
 from .nodes.structure import structure_datasets
 from .nodes.merge import merge_datasets
+import pandas as pd
+import sqlite3
 
-def get_sqlite_connection(credentials):
-    import sqlite3
-    return sqlite3.connect(credentials["con"])
+def save_merged_data_to_sqlite(merged_data_pandas: pd.DataFrame, sqlite_creds: dict):
+    try:
+        if not isinstance(sqlite_creds, dict):
+            raise ValueError("Expected sqlite_creds to be a dictionary")
+
+        db_path = sqlite_creds["con"]
+        print(f"Database path: {db_path}")
+
+        # Save Pandas DataFrame to SQLite in chunks
+        chunk_size = 50000  # Adjust chunk size as needed
+        conn = sqlite3.connect(db_path.replace("sqlite:///", ""))
+        for i in range(0, len(merged_data_pandas), chunk_size):
+            merged_data_pandas.iloc[i:i + chunk_size].to_sql("merged_data", conn, if_exists="append", index=False)
+        conn.close()
+
+        print("Data saved to SQLite successfully.")
+    except Exception as e:
+        print(f"An error occurred while saving data to SQLite: {e}")
+        raise e
 
 def create_pipeline(**kwargs):
     return Pipeline(
@@ -42,7 +60,7 @@ def create_pipeline(**kwargs):
                 name="convert_to_pandas"
             ),
             node(
-                lambda df, con: df.to_sql("merged_data", con, if_exists="replace", index=False),  # Save Pandas DataFrame to SQLite
+                save_merged_data_to_sqlite,  # Save Pandas DataFrame to SQLite with chunking
                 inputs=["merged_data_pandas", "params:sqlite_creds"],
                 outputs=None,
                 name="save_merged_data_to_sqlite"

@@ -1,0 +1,13 @@
+name: 'healthcare_pipeline_dbt'
+version: '1.0.0'
+config-version: 2
+
+profile: 'healthcare_pipeline'
+
+model-paths: ["models"]
+seed-paths: ["../../data/01_raw"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
