@@ -1,99 +1,97 @@
-# healthcare_pipeline
+# Century Health Data Engineering Task
 
 ## Overview
 
-This is your new Kedro project with Kedro-Viz and PySpark setup, which was generated using `kedro 0.19.6`.
+This repository contains the implementation of a data engineering task for Century Health. The task involves understanding raw healthcare data, identifying data quality issues, applying a standardization framework, and building a data pipeline. The pipeline processes and merges various datasets related to Lupus patients in Texas and performs several analyses on the cleaned data.
 
-Take a look at the [Kedro documentation](https://docs.kedro.org) to get started.
 
-## Rules and guidelines
+## Datasets
 
-In order to get the best out of the template:
+The datasets used in this project are as follows:
 
-* Don't remove any lines from the `.gitignore` file we provide
-* Make sure your results can be reproduced by following a [data engineering convention](https://docs.kedro.org/en/stable/faq/faq.html#what-is-data-engineering-convention)
-* Don't commit data to your repository
-* Don't commit any credentials or your local configuration to your repository. Keep all your credentials and local configuration in `conf/local/`
+- **Patients**: Patient demographics including birth date, name, race, ethnicity, gender, location, and income.
+- **Encounters**: Visit-level information, including visit description, diagnosis code, and cost.
+- **Symptoms**: Lab results, specifically symptoms taken for Lupus patients, such as Rash, Joint Pain, Fatigue, and Fever.
+- **Medications**: Medication information, including therapeutic code, description, reason, and cost.
+- **Conditions**: Condition of patient in encounter, including diagnosis code and description.
+- **Patient Gender**: Gender information for the patients.
 
-## How to install dependencies
+## Data Pipeline
 
-Declare any dependencies in `requirements.txt` for `pip` installation.
+The data pipeline is built using the Kedro framework and consists of the following steps:
 
-To install them, run:
+1. **Connect**: Load the datasets.
+2. **Clean**: Fix data quality issues, standardize fields, and add missing data.
+3. **Structure**: Standardize column names and extract individual symptoms.
+4. **Merge**: Join the datasets to create a master table.
+5. **Save**: Save the merged data into a SQLite database.
 
+## Setup
+
+### Prerequisites
+
+- Python 3.8 or above
+- Kedro
+- SQLite
+- Great Expectations
+- dbt
+
+
+## Installation
+
+1. **Clone the repository**:
+
+   ```sh
+   git clone https://github.com/26nikhilkumar/healthcare-pipeline.git
+   cd healthcare_pipeline
+2. **Create and activate a virtual environment:**
+    ```
+    python -m venv venv
+    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+3. **Install the dependencies:**
+    ```
+    pip install -r requirements.txt
+    ```
+
+## Running the Pipeline
+
+### Data Processing Pipeline
+
+To run the data processing pipeline, which loads, cleans, structures, merges, and saves the data:
+
+```sh
+kedro run --pipeline data_processing
 ```
-pip install -r requirements.txt
-```
+### Data Analysis Pipeline
 
-## How to run your Kedro pipeline
-
-You can run your Kedro project with:
-
-```
-kedro run
-```
-
-## How to test your Kedro project
-
-Have a look at the files `src/tests/test_run.py` and `src/tests/pipelines/data_science/test_pipeline.py` for instructions on how to write your tests. Run the tests as follows:
-
-```
-pytest
-```
-
-To configure the coverage threshold, look at the `.coveragerc` file.
-
-## Project dependencies
-
-To see and update the dependency requirements for your project use `requirements.txt`. Install the project requirements with `pip install -r requirements.txt`.
-
-[Further information about project dependencies](https://docs.kedro.org/en/stable/kedro_project_setup/dependencies.html#project-specific-dependencies)
-
-## How to work with Kedro and notebooks
-
-> Note: Using `kedro jupyter` or `kedro ipython` to run your notebook provides these variables in scope: `catalog`, `context`, `pipelines` and `session`.
->
-> Jupyter, JupyterLab, and IPython are already included in the project requirements by default, so once you have run `pip install -r requirements.txt` you will not need to take any extra steps before you use them.
-
-### Jupyter
-To use Jupyter notebooks in your Kedro project, you need to install Jupyter:
-
-```
-pip install jupyter
-```
-
-After installing Jupyter, you can start a local notebook server:
-
-```
-kedro jupyter notebook
-```
-
-### JupyterLab
-To use JupyterLab, you need to install it:
-
-```
-pip install jupyterlab
+To run the data analysis pipeline, which loads the data from the SQLite database and performs various analyses:
+```sh
+kedro run --pipeline data_analysis
 ```
 
-You can also start JupyterLab:
+## Data Analysis
 
-```
-kedro jupyter lab
-```
+The following analyses are performed in the data analysis pipeline:
 
-### IPython
-And if you want to run an IPython session:
+1. Count Distinct Patients: Calculates the number of distinct patients in the dataset.
+2. Plot Distinct Medications Over Time: Plots the distinct medications over time.
+3. Plot Racial and Gender Distribution: Creates pie charts indicating the percentage of patients across each racial category and gender.
+4. Calculate Percentage of Patients with Symptoms: Calculates the percentage of patients with all 4 symptom categories ≥ 30.
 
-```
-kedro ipython
-```
+### Some analysis results are:
 
-### How to ignore notebook output cells in `git`
-To automatically strip out all output cell contents before committing to `git`, you can use tools like [`nbstripout`](https://github.com/kynan/nbstripout). For example, you can add a hook in `.git/config` with `nbstripout --install`. This will run `nbstripout` before anything is committed to `git`.
+```Number of distinct patients: 10000```
 
-> *Note:* Your output cells will be retained locally.
+```Percentage of patients with 4 or more symptoms: 8.72%```
 
-## Package your Kedro project
+![race_distribution](race_distribution.png)
 
-[Further information about building project documentation and packaging your project](https://docs.kedro.org/en/stable/tutorial/package_a_project.html)
->>>>>>> pipeline till saving data to db
+![medications_over_time](medications_over_time.png)
+
+![gender_distribution](gender_distribution.png)
+
+## Conclusion
+
+This project demonstrates the process of loading, cleaning, structuring, merging, and analyzing healthcare data using Kedro. The pipeline is designed to be modular and easy to understand, making it easy to extend or modify for future tasks.
+
+For any questions or further information, please contact `Nikhil Kumar` at `26nikhilkumar01@gmail.com`.

@@ -13,6 +13,7 @@ ruff~=0.1.8
 setuptools; python_version >= "3.12"
 pandas
 pyarrow
+pyspark==3.2.1
 importlib-metadata==7.0.0  # Pinning a compatible version
 anyio==3.6.2  # Pinning a compatible version
 urllib3<1.27,>=1.25.4  # Pinning a compatible version
