@@ -90,6 +90,38 @@ The following analyses are performed in the data analysis pipeline:
 
 ![gender_distribution](gender_distribution.png)
 
+
+## dbt and Great Expectations
+
+## Running dbt
+
+To run the dbt pipeline manually:
+
+Navigate to the dbt directory:
+
+```sh
+cd healthcare_pipeline_dbt/
+```
+
+```
+dbt clean
+dbt deps
+dbt seed
+dbt run
+dbt test
+```
+## Running Great Expectations
+
+To run Great Expectations manually:
+
+Navigate to the Great Expectations directory:
+```sh
+cd gx/validations/
+```
+```
+./validate_all.sh
+```
+
 ## Conclusion
 
 This project demonstrates the process of loading, cleaning, structuring, merging, and analyzing healthcare data using Kedro. The pipeline is designed to be modular and easy to understand, making it easy to extend or modify for future tasks.
