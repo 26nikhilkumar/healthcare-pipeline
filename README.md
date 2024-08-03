@@ -16,6 +16,12 @@ The datasets used in this project are as follows:
 - **Conditions**: Condition of patient in encounter, including diagnosis code and description.
 - **Patient Gender**: Gender information for the patients.
 
+## ER Diagram for the Datasets
+
+To show the relationships between datasets.
+
+![ER_Diagram](ER-HealthCare.png)
+
 ## Data Pipeline
 
 The data pipeline is built using the Kedro framework and consists of the following steps:
